@@ -1,7 +1,6 @@
 def solution(players, callings):
     player_dict = {p:i for i,p in enumerate(players)}
     idx_dict = {i:p for i,p in enumerate(players)}
-#
     
     for call in callings:
         cur_idx = player_dict[call]
