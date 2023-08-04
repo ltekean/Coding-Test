@@ -1,49 +1,27 @@
-from sys import stdin
+import sys
 
+
+def process_stack(command, stack):
+    if command[0] == "push":
+        stack.append(int(command[1]))
+    elif command[0] in ["pop", "top"]:
+        if stack:
+            return stack.pop() if command[0] == "pop" else stack[-1]
+        else:
+            return -1
+    elif command[0] == "size":
+        return len(stack)
+    elif command[0] == "empty":
+        return 0 if stack else 1
+
+
+input = sys.stdin.readline
+
+n = int(input())
 stack = []
 
-
-def push(X):
-    stack.append(X)
-
-
-def pop():
-    if len(stack) == 0:
-        print(-1)
-    else:
-        print(stack.pop())
-
-
-def size():
-    print(len(stack))
-
-
-def empty():
-    if len(stack) == 0:
-        print(1)
-    else:
-        print(0)
-
-
-def top():
-    if len(stack) == 0:
-        print(-1)
-    else:
-        print(stack[-1])
-
-
-# main
-T = int(stdin.readline())
-
-for i in range(T):
-    command = list(stdin.readline().split())
-    if command[0] == "push":
-        push(command[1])
-    elif command[0] == "pop":
-        pop()
-    elif command[0] == "size":
-        size()
-    elif command[0] == "empty":
-        empty()
-    elif command[0] == "top":
-        top()
+for _ in range(n):
+    command = input().rstrip().split()
+    result = process_stack(command, stack)
+    if result is not None:
+        print(result)
