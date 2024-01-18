@@ -1,3 +1,4 @@
+import re
 def solution(phone_number):
-    masked_number = '*' * (len(phone_number) - 4) + phone_number[-4:]
+    masked_number = re.sub(r'\d(?=\d{4})', '*', phone_number)
     return masked_number
