@@ -1,7 +1,7 @@
-def gcd(a, b):
-    while b:
-        a, b = b, a % b
-    return a
+def gcd(x, y):
+    while y:
+        x, y = y, x % y
+    return x
 
 def solution(arr):
     a= 1
