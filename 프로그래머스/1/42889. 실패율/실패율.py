@@ -1,19 +1,37 @@
+from collections import Counter
+from collections import deque
+
 def solution(N, stages):
+    # backup = deepcopy(stages)
+    tmpAnswer = []
+
+    sub = len(stages)
+    result = Counter(stages)
+    result = list(result.items())
+    result.sort(key=lambda x: x[0])
+
+    for data in result:
+        currPosPlayer = data[1]
+        if(data[0]== N+1): # 마지막스테이지 통과한사람이면
+            continue
+        tmpAnswer.append([data[0], currPosPlayer / sub])
+        sub -= currPosPlayer
+
+    # tmpAnswer.sort(key=lambda x: x[1], reverse=True)
+    tmpAnswerDict = dict(tmpAnswer)
+    dq = deque()
+
+    for i in range(1, N + 1):
+        data = tmpAnswerDict.get(i)
+        if data == None:
+            dq.append([i, 0])
+            continue
+        dq.append([i, data])
+    resultAnswer = list(dq)
+
+    resultAnswer.sort(key=lambda x: x[1], reverse=True)
+
     answer = []
-    a = len(stages)
-    for i in range(1, N+1):
-        count_i = stages.count(i)
-        if a == 0:
-            answer.append(0)
-        else:
-            answer.append(count_i / a)
-        a -= count_i
-        
-    result = sorted(range(len(answer)), key=lambda i: (-answer[i], i))
-    return [idx + 1 for idx in result]
-
-
-# 실패율 : 실패자/스테이지 도달자
-# N : 전체 스테이지 수
-# stages : 사용자가 있는 스테이지의 번호 담긴 배열
-# 실패율이 높은 스테이지부터 내림차순 return
+    for i in range(N):
+        answer.append(resultAnswer[i][0])
+    return answer
