@@ -1,5 +1,7 @@
+from collections import deque
+
 def solution(arr):
-    stk = []
+    stk = deque()
     i = 0
     
     while i < len(arr):
@@ -12,4 +14,4 @@ def solution(arr):
         else:
             stk.pop()
     
-    return stk
+    return list(stk)
